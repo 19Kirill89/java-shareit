@@ -31,12 +31,20 @@ public class ErrorHandler {
         return new ErrorResponse(e.getMessage());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler()
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse alreadyExistException(final AlreadyExistsException e) {
         log.debug("Статус 409 Not found {}", e.getMessage(), e);
         return new ErrorResponse(e.getMessage());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidationException(MethodArgumentNotValidException e) {
+        log.debug("Статус 400 неверные данные при валидации");
+        return new ErrorResponse("Invalid data: " + e.getMessage());
+    }
+
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
