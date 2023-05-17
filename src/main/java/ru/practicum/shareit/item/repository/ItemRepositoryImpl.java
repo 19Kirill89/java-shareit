@@ -2,9 +2,7 @@ package ru.practicum.shareit.item.repository;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.item.itemmodels.Item;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +11,9 @@ import static java.util.stream.Collectors.toList;
 
 @Repository
 @Qualifier("ItemRepositoryImpl")
-public class ItemRepositoryImpl implements Items {
+public class ItemRepositoryImpl implements Item {
 
-    public Map<Long, Item> things;
+    public Map<Long, ru.practicum.shareit.item.itemmodels.Item> things;
     private Long currentId;
 
     public ItemRepositoryImpl() {
@@ -24,25 +22,25 @@ public class ItemRepositoryImpl implements Items {
     }
 
     @Override
-    public Item create(Item item) {
+    public ru.practicum.shareit.item.itemmodels.Item create(ru.practicum.shareit.item.itemmodels.Item item) {
         item.setId(++currentId);
+        things.put(item.getId(), item);
+        return item;
+    }
+
+    @Override
+    public ru.practicum.shareit.item.itemmodels.Item update(ru.practicum.shareit.item.itemmodels.Item item) {
         this.things.put(item.getId(), item);
         return item;
     }
 
     @Override
-    public Item update(Item item) {
-        this.things.put(item.getId(), item);
-        return item;
-    }
-
-    @Override
-    public Item delete(Long itemId) {
+    public ru.practicum.shareit.item.itemmodels.Item delete(Long itemId) {
         return things.remove(itemId);
     }
 
     @Override
-    public List<Item> getItemsByOwner(Long ownerId) {
+    public List<ru.practicum.shareit.item.itemmodels.Item> getItemsByOwner(Long ownerId) {
         return things
                 .values()
                 .stream()
@@ -50,17 +48,17 @@ public class ItemRepositoryImpl implements Items {
     }
 
     @Override
-    public List<Item> getItemsBySearchQuery(String text) {
+    public List<ru.practicum.shareit.item.itemmodels.Item> getItemsBySearchQuery(String text) {
         return things.values()
                 .stream()
-                .filter(Item::getAvailable)
+                .filter(ru.practicum.shareit.item.itemmodels.Item::getAvailable)
                 .filter(item -> item.getName().toLowerCase().contains(text) ||
                         item.getDescription().toLowerCase().contains(text))
                 .collect(toList());
     }
 
     @Override
-    public Item getItemById(Long itemId) {
+    public ru.practicum.shareit.item.itemmodels.Item getItemById(Long itemId) {
         return things.get(itemId);
     }
 
@@ -69,7 +67,7 @@ public class ItemRepositoryImpl implements Items {
         things.values()
                 .stream()
                 .filter(item -> item.getOwnerId().equals(ownerId))
-                .map(Item::getId)
+                .map(ru.practicum.shareit.item.itemmodels.Item::getId)
                 .forEach(id -> things.remove(id));
     }
 }

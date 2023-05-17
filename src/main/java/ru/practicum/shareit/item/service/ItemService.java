@@ -3,11 +3,10 @@ package ru.practicum.shareit.item.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.sareitexception.NotFoundException;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.itemmapper.ItemMapper;
-import ru.practicum.shareit.item.itemmodels.Item;
-import ru.practicum.shareit.item.repository.Items;
+import ru.practicum.shareit.item.repository.Item;
 import ru.practicum.shareit.user.service.UserService;
 
 import java.util.Collections;
@@ -17,13 +16,13 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 public class ItemService {
-    private final Items itemRepository;
+    private final Item itemRepository;
     private final ItemMapper mapper;
 
     private final UserService userService;
 
     @Autowired
-    public ItemService(@Qualifier("ItemRepositoryImpl") Items itemRepository, ItemMapper itemMapper, UserService userService) {
+    public ItemService(@Qualifier("ItemRepositoryImpl") Item itemRepository, ItemMapper itemMapper, UserService userService) {
         this.itemRepository = itemRepository;
         this.mapper = itemMapper;
         this.userService = userService;
@@ -53,7 +52,7 @@ public class ItemService {
         if (itemDto.getId() == null) {
             itemDto.setId(itemId);
         }
-        Item oldItem = itemRepository.getItemById(itemId);
+        ru.practicum.shareit.item.itemmodels.Item oldItem = itemRepository.getItemById(itemId);
         if (!oldItem.getOwnerId().equals(ownerId)) {
             throw new NotFoundException("User have no such item.");
         }
@@ -61,7 +60,7 @@ public class ItemService {
     }
 
     public ItemDto delete(Long itemId, Long ownerId) {
-        Item item = itemRepository.getItemById(itemId);
+        ru.practicum.shareit.item.itemmodels.Item item = itemRepository.getItemById(itemId);
         if (!item.getOwnerId().equals(ownerId)) {
             throw new NotFoundException("User have no such item.");
         }
