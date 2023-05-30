@@ -27,7 +27,7 @@ public class BookingController {
 
     @GetMapping("/{bookingId}")
     public OutputBookingDto findById(@RequestHeader(OWNER_ID_HEADER) Long userId, @PathVariable Long bookingId) {
-        log.info("GET- запрос: '/bookings' для получения booking with ID = {}", bookingId);
+        log.info("GET- запрос: '/bookings' для получения booking c ID = {}", bookingId);
         return bookingService.findBookingById(bookingId, userId);
     }
 

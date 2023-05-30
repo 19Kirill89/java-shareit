@@ -95,7 +95,7 @@ public class BookingService {
                         .findByBookerIdAndStatusIsOrderByStartDesc(userId, BookingStatus.REJECTED));
 
         }
-        throw new BadRequestException(String.format("Странная ошибка %s", state));
+        throw new BadRequestException(String.format("Неизвестная ошибка %s", state));
     }
 
     @Transactional
@@ -118,7 +118,7 @@ public class BookingService {
                 return bookingMapper.toBookingDto(bookingRepository
                         .findRejectedBookingsOwner(ownerId, BookingStatus.REJECTED));
         }
-        throw new BadRequestException(String.format("Странная ошибка %s", state));
+        throw new BadRequestException(String.format("Неизвестная ошибка %s", state));
     }
 
     @Transactional

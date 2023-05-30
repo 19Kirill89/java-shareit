@@ -82,8 +82,7 @@ public class ItemService {
                 .orElseThrow(() -> new NotFoundException(String.format("Item with ID = %d not found.", itemId)));
         userService.findUserById(userId);
         if (!item.getOwnerId().equals(userId)) {
-            throw new OperationAccessException(String.format("User with ID = %d is not an owner," +
-                    " update is not available.", userId));
+            throw new OperationAccessException(String.format("User with ID = %d is not an owner, update is not available.", userId));
         }
         if (itemDto.getName() != null) {
             item.setName(itemDto.getName());
@@ -154,8 +153,7 @@ public class ItemService {
             comment.setCreated(LocalDateTime.now());
             return commentMapper.toDto(commentRepository.save(comment));
         } else {
-            throw new NotAvailableException(String.format("Booking for user with ID = %d and" +
-                    " item with ID = %d not found.", userId, itemId));
+            throw new NotAvailableException(String.format("Booking for user with ID = %d and item with ID = %d not found.", userId, itemId));
         }
     }
 }

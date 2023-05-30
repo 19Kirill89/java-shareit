@@ -81,16 +81,9 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationException(MethodArgumentNotValidException e) {
-        log.debug("Статус 400 {}", e.getMessage());
-        return new ErrorResponse("Неверные данные: " + e.getMessage());
-    }
-
-    @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleThrowable(Throwable throwable) {
-        log.error("Неизвестная ошибка", throwable);
+        log.error("Unknown error", throwable);
         return ErrorResponse.builder().error(throwable.getMessage()).build();
     }
 
