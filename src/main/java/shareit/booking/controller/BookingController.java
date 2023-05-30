@@ -2,6 +2,7 @@ package shareit.booking.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import shareit.booking.dto.InputBookingDto;
 import shareit.booking.dto.OutputBookingDto;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
 @Slf4j
+@Validated
 public class BookingController {
     private static final String OWNER_ID_HEADER = "X-Sharer-User-Id";
     private final BookingService bookingService;
