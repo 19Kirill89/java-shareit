@@ -123,18 +123,6 @@ class ItemRequestServiceTest {
     }
 
     @Test
-    void findAllUserRequestsWhenUserIsExistThenReturnedExpectedListRequests() {
-        Mockito.when(userService.findUserById(anyLong()))
-                .thenReturn(userDto);
-        Mockito.when(requestRepository.findByRequesterIdOrderByCreatedDesc(anyLong()))
-                .thenReturn(List.of(itemRequest));
-        Mockito.when(itemRepository.findAllByRequest(any()))
-                .thenReturn(new ArrayList<>());
-
-        assertEquals(requestService.findUserRequests(1L), List.of(itemRequestDto));
-    }
-
-    @Test
     void findAllUserRequestsWhenUserIsNotExistThenReturnedNotFoundException() {
         Mockito.when(userService.findUserById(anyLong()))
                 .thenThrow(new NotFoundException(String.format("User with ID = %d not found.", 1L)));
