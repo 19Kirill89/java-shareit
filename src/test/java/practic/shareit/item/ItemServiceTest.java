@@ -77,7 +77,7 @@ class ItemServiceTest {
             .name("ItemName")
             .description("description")
             .available(true)
-            .itemRequest(itemRequest)
+            .request(itemRequest)
             .ownerId(1L)
             .build();
     private final ItemDto itemDto = ItemDto.builder()
