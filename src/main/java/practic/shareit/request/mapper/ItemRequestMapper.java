@@ -35,7 +35,7 @@ public class ItemRequestMapper {
                 .description(request.getDescription())
                 .created(request.getCreated())
                 .requester(UserMapper.toUserDto(request.getRequester()))
-                .items(itemList.stream().map(ItemMapper::toItemDto).toList())
+                .items(itemList.stream().map(ItemMapper::toItemDto).collect(Collectors.toList()))
                 .build();
     }
 
