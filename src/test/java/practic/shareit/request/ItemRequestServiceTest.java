@@ -82,7 +82,7 @@ class ItemRequestServiceTest {
                 .thenReturn(userDto);
         Mockito.when(requestRepository.findById(any()))
                 .thenReturn(Optional.ofNullable(itemRequest));
-        Mockito.when(itemRepository.findAllByItemRequest(any()))
+        Mockito.when(itemRepository.findAllByRequest(any()))
                 .thenReturn(new ArrayList<>());
 
         Assertions.assertEquals(requestService.findById(1L, 1L), itemRequestDto);
@@ -103,7 +103,7 @@ class ItemRequestServiceTest {
     void findAllRequestsWhenParamsIsExistThenReturnedExpectedListRequests() {
         Mockito.when(userService.findUserById(anyLong()))
                 .thenReturn(userDto);
-        Mockito.when(itemRepository.findAllByItemRequest(any()))
+        Mockito.when(itemRepository.findAllByRequest(any()))
                 .thenReturn(new ArrayList<>());
         Mockito.when(requestRepository.findByRequesterIdIsNot(anyLong(), any()))
                 .thenReturn(List.of(itemRequest));
@@ -128,7 +128,7 @@ class ItemRequestServiceTest {
                 .thenReturn(userDto);
         Mockito.when(requestRepository.findByRequesterIdOrderByCreatedDesc(anyLong()))
                 .thenReturn(List.of(itemRequest));
-        Mockito.when(itemRepository.findAllByItemRequest(any()))
+        Mockito.when(itemRepository.findAllByRequest(any()))
                 .thenReturn(new ArrayList<>());
 
         assertEquals(requestService.findUserRequests(1L), List.of(itemRequestDto));

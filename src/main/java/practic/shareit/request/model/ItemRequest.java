@@ -1,9 +1,6 @@
 package practic.shareit.request.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import practic.shareit.item.model.Item;
 import practic.shareit.user.model.User;
@@ -22,7 +19,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "requests")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor

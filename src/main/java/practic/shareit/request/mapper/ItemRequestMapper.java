@@ -2,12 +2,14 @@ package practic.shareit.request.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import practic.shareit.item.model.Item;
 import practic.shareit.request.model.ItemRequest;
 import practic.shareit.item.mapper.ItemMapper;
 import practic.shareit.request.dto.ItemRequestDto;
 import practic.shareit.user.mapper.UserMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,6 +26,16 @@ public class ItemRequestMapper {
                         .map(ItemMapper::toItemDto)
                         .collect(Collectors.toList())
                         : new ArrayList<>())
+                .build();
+    }
+
+    public static ItemRequestDto toItemRequestDto(ItemRequest request, List<Item> itemList) {
+        return ItemRequestDto.builder()
+                .id(request.getId())
+                .description(request.getDescription())
+                .created(request.getCreated())
+                .requester(UserMapper.toUserDto(request.getRequester()))
+                .items(itemList.stream().map(ItemMapper::toItemDto).toList())
                 .build();
     }
 

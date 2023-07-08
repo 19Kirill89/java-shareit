@@ -1,9 +1,6 @@
 package practic.shareit.item.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import practic.shareit.booking.model.Booking;
 import practic.shareit.item.comment.dto.CommentDto;
 import practic.shareit.request.model.ItemRequest;
@@ -21,7 +18,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "items")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,5 +52,5 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "request_id")
-    private ItemRequest itemRequest;
+    private ItemRequest request;
 }
