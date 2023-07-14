@@ -1,7 +1,0 @@
-package practic.shareit.exception;
-
-public class NotAvailableException extends RuntimeException {
-    public NotAvailableException(String message) {
-        super(message);
-    }
-}
